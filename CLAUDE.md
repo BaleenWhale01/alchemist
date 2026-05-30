@@ -80,6 +80,10 @@ truth; agents coordinate by reading/writing Markdown notes in it.
 
 ## Not yet built (PRD roadmap)
 
-Voice transcription, more chat adapters (interface is ready), capturing insight accept/reject
-from chat to feed `alchemist.record_judgment`, knowledge-map image export, multi-identity,
-team/shared workspace.
+Voice transcription, more chat adapters (interface is ready), knowledge-map image export,
+multi-identity, team/shared workspace.
+
+Insight accept/reject capture is now wired: `scan_insights` persists the surfaced candidate to
+`<workspace>/.alchemist/pending.json`; the alchemist's next `handle()` classifies the user's
+reply (via `complete_json`) and, if it's a verdict, calls `record_judgment` and clears pending —
+so `_learning_summary` actually accumulates taste over time.
