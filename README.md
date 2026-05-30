@@ -107,6 +107,7 @@ alchemist/
 ## Status
 
 MVP (v0.5). Implemented: all four agents, PARA workspace, Telegram gateway, scheduler,
-publisher templates, local CLI. Not yet: voice transcription, additional chat platforms
-(the `ChatAdapter` interface is ready for them), insight accept/reject capture from chat,
-knowledge-map image export. See the PRD for the full roadmap.
+publisher templates, local CLI, and the insight accept/reject loop (replying to a pushed
+insight teaches `@alchemist` your taste). Not yet: voice transcription, additional chat
+platforms (the `ChatAdapter` interface is ready for them), knowledge-map image export.
+See the PRD for the full roadmap.
