@@ -1,4 +1,6 @@
-# alchemist · 知识炼金术士
+# alchemist
+
+*[中文版 / Chinese version →](README.zh-CN.md)*
 
 A **self-deployable, multi-agent knowledge system** that runs the CODE methodology
 (Capture → Organize → Distill → Express) over a chat group and a PARA Markdown
@@ -16,7 +18,7 @@ YAML config — specialized here into the four-agent CODE pipeline from the prod
 | `@scout` | **Capture** | Receives everything, files it to PARA, asks at most one intent question. |
 | `@librarian` | **Organize** | Guards PARA structure; the only agent that can move/archive. Pushes a weekly knowledge map. |
 | `@alchemist` | **Distill** | Scans all notes for cross-note patterns; pushes insight candidates (Wed/Fri); learns your taste. |
-| `@publisher` | **Express** | Turns insights + project notes into drafts (小红书/公众号/Twitter/memo/book chapter…); always reverse-validates the claims. |
+| `@publisher` | **Express** | Turns insights + project notes into drafts (Xiaohongshu / WeChat / Twitter / memo / book chapter…); always reverse-validates the claims. |
 
 All four mount the **same** PARA workspace (`Projects / Areas / Resources / Archives`).
 Notes are plain Markdown (`YYYYMMDD-source-tag.md`) — yours to back up and migrate.
@@ -49,9 +51,9 @@ Every agent runs from the terminal with just a provider key:
 
 ```bash
 alchemist capture "https://example.com/an-article"   # scout files it
-alchemist chat librarian "我的知识库现在什么状态?"
-alchemist chat alchemist "帮我提炼最近关于定价的笔记"
-alchemist draft "@publisher 用我的知识管理笔记写第三章，主题是信息过载"
+alchemist chat librarian "What's the state of my knowledge base right now?"
+alchemist chat alchemist "Distill my recent notes on pricing"
+alchemist draft "@publisher Write chapter 3 from my knowledge-management notes, on information overload"
 alchemist scan    # run the insight scan once
 alchemist map     # generate the weekly knowledge map once
 ```
