@@ -1,4 +1,4 @@
-# alchemist · 龙虾知识炼金系统
+# alchemist · 知识炼金系统
 
 A **self-deployable, multi-agent knowledge system** that runs the CODE methodology
 (Capture → Organize → Distill → Express) over a chat group and a PARA Markdown
