@@ -1,0 +1,62 @@
+# ───────────────────────────────────────────────────────────────────
+# alchemist (龙虾知识炼金系统) configuration
+# Copy to ~/.alchemist/config.yaml (or pass --config) and fill in.
+# Secrets may also come from env vars; env vars win over this file.
+# ───────────────────────────────────────────────────────────────────
+
+# Where the shared PARA workspace lives. All agents mount the same path.
+workspace: "~/.alchemist/workspace"
+
+# ── LLM provider ───────────────────────────────────────────────────
+provider:
+  # one of: openrouter | anthropic | openai
+  name: openrouter
+  # API key. Leave blank to read from env (OPENROUTER_API_KEY / ANTHROPIC_API_KEY / OPENAI_API_KEY).
+  api_key: ""
+  # Default model used by every agent unless overridden in agents.<id>.model
+  model: "anthropic/claude-sonnet-4.6"
+  # Optional base_url override (e.g. self-hosted gateway / Nous Portal).
+  base_url: ""
+
+# ── Per-agent overrides (all optional) ─────────────────────────────
+# Each agent inherits the provider model above; override per role here.
+agents:
+  scout: {}
+  librarian: {}
+  alchemist:
+    # the insight engine benefits from a stronger model
+    model: "anthropic/claude-opus-4.8"
+  publisher: {}
+
+# ── Chat channels (the gateway) ────────────────────────────────────
+channels:
+  telegram:
+    enabled: true
+    # Telegram group chat id the bots operate in (e.g. -1001234567890).
+    # Leave blank to accept the first group the bots are added to.
+    group_id: ""
+    # One bot token per agent. Create 4 bots via @BotFather.
+    # Blank tokens fall back to env: TELEGRAM_TOKEN_<AGENT> (e.g. TELEGRAM_TOKEN_SCOUT).
+    accounts:
+      scout: ""
+      librarian: ""
+      alchemist: ""
+      publisher: ""
+
+# ── Scheduled routines (cron-like, local time) ─────────────────────
+# Disable any of these by setting enabled: false.
+schedule:
+  weekly_map:        # librarian pushes the weekly knowledge map
+    enabled: true
+    day: mon
+    time: "09:00"
+  insight_push:      # alchemist pushes insight candidates
+    enabled: true
+    days: [wed, fri]
+    time: "10:00"
+
+# ── Behavior knobs (defaults match the PRD) ────────────────────────
+behavior:
+  scout_intake_timeout_hours: 24   # unconfirmed captures auto-file to Resources
+  publisher_default_template: ""   # blank = pick by user identity in SOUL
+  log_level: info

@@ -1,0 +1,18 @@
+services:
+  alchemist:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: alchemist
+    restart: unless-stopped          # satisfies the PRD's 30s auto-restart requirement
+    environment:
+      # secrets via env so they stay out of the image and the mounted config
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - TELEGRAM_TOKEN_SCOUT=${TELEGRAM_TOKEN_SCOUT:-}
+      - TELEGRAM_TOKEN_LIBRARIAN=${TELEGRAM_TOKEN_LIBRARIAN:-}
+      - TELEGRAM_TOKEN_ALCHEMIST=${TELEGRAM_TOKEN_ALCHEMIST:-}
+      - TELEGRAM_TOKEN_PUBLISHER=${TELEGRAM_TOKEN_PUBLISHER:-}
+    volumes:
+      # holds config.yaml + the PARA workspace; back this up to keep your second brain
+      - ./data:/data
+      - ./data/workspace:/data/workspace
