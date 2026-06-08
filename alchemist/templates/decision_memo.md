@@ -1,11 +1,11 @@
-# Template: 决策备忘录 (decision memo)
+# Template: decision memo
 
 Structure to follow when drafting:
-- 决策问题: 一句话说清要决定什么、为什么现在
-- 背景: 关键事实与约束（bullet）
-- 选项: 2–4 个，每个含 优点 / 代价 / 风险
-- 建议: 明确推荐哪个 + 一句话理由
-- 假设与未知: 这个决策依赖的前提、还需验证的点
-- 下一步: 谁、做什么、何时
+- Decision: one sentence on what must be decided and why now
+- Background: key facts and constraints (bullets)
+- Options: 2–4, each with upside / cost / risk
+- Recommendation: which one, plus a one-line rationale
+- Assumptions & unknowns: the premises this rests on and what still needs verifying
+- Next steps: who, does what, by when
 
-Voice: 简洁、可执行、对事不对人。区分事实与判断。
+Voice: concise, actionable, on the issue not the person. Separate fact from judgment.

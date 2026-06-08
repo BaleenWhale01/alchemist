@@ -9,18 +9,16 @@ from .base import Agent, AgentReply, Message
 
 # user-facing names / aliases → template file stem
 _TEMPLATES = {
-    "xiaohongshu": "xiaohongshu", "小红书": "xiaohongshu",
-    "wechat": "wechat", "公众号": "wechat",
     "twitter": "twitter_thread", "x": "twitter_thread", "thread": "twitter_thread",
-    "memo": "decision_memo", "决策": "decision_memo", "决策备忘录": "decision_memo",
-    "book": "book_chapter", "书稿": "book_chapter", "章节": "book_chapter",
+    "memo": "decision_memo", "decision": "decision_memo",
+    "book": "book_chapter", "chapter": "book_chapter",
 }
 
 # default template per user identity
 _IDENTITY_DEFAULT = {
-    "blogger": "xiaohongshu", "自媒体": "xiaohongshu", "博主": "xiaohongshu",
-    "founder": "decision_memo", "创业者": "decision_memo",
-    "expert": "book_chapter", "author": "book_chapter", "专家": "book_chapter", "作者": "book_chapter",
+    "blogger": "twitter_thread",
+    "founder": "decision_memo",
+    "expert": "book_chapter", "author": "book_chapter",
 }
 
 
@@ -48,7 +46,7 @@ class PublisherAgent(Agent):
         )
         title = msg.text[:40]
         path = self.ws.save_draft(project, title, draft)
-        footer = f"\n\n———\n草稿已存入 {path.relative_to(self.ws.root)}"
+        footer = f"\n\n———\nDraft saved to {path.relative_to(self.ws.root)}"
         return AgentReply(text=draft + footer, prefix=PREFIX["draft"])
 
     # ── internals ──────────────────────────────────────────────────
@@ -60,7 +58,7 @@ class PublisherAgent(Agent):
         configured = self.cfg.behavior.get("publisher_default_template")
         if configured:
             return configured
-        return _IDENTITY_DEFAULT.get(self._identity().lower(), "wechat")
+        return _IDENTITY_DEFAULT.get(self._identity().lower(), "decision_memo")
 
     def _load_template(self, stem: str) -> str:
         override = self.ws.root / ".templates" / f"{stem}.md"

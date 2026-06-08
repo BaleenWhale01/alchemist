@@ -44,8 +44,8 @@ class ScoutAgent(Agent):
         path = self.ws.write_note(note)
 
         loc = f"{note.para}/{note.project}".rstrip("/")
-        tags = "、".join(note.tags) if note.tags else "无"
-        confirm = f"已接收：「{note.title}」→ {loc}（标签：{tags}）"
+        tags = ", ".join(note.tags) if note.tags else "none"
+        confirm = f"Captured: \"{note.title}\" → {loc} (tags: {tags})"
         question = (decision.get("question") or "").strip()
         if question:
             confirm += f"\n{question}"

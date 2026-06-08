@@ -1,11 +1,12 @@
-# Template: 书稿章节 (book chapter)
+# Template: book chapter
 
 Structure to follow when drafting:
-- 章节标题 + 一句话主旨
-- 开篇: 一个场景/故事/问题，引出本章要解决的张力
-- 核心论点: 2–4 个，每个论点配至少一个具体案例或证据
-- 论点之间用过渡句衔接，保持叙事流
-- 小结: 提炼本章给读者的 1 个可带走的认知
-- 留白: 引向下一章的钩子
+- Chapter title + a one-sentence thesis
+- Opening: a scene/story/question that raises the tension this chapter resolves
+- Core arguments: 2–4, each backed by at least one concrete case or piece of evidence
+- Connect arguments with transitions so the narrative flows
+- Wrap-up: distill the one takeaway the reader leaves with
+- Hook: a thread that leads into the next chapter
 
-Voice: 有作者人格、有论证密度。每个论点必须落到具体案例，杜绝空泛。
+Voice: an authorial voice with argumentative density. Every argument must land on a
+concrete case — no vague generalities.

@@ -1,7 +1,7 @@
 [project]
 name = "alchemist"
 version = "0.5.0"
-description = "龙虾知识炼金系统 — a self-deployable multi-agent CODE/PARA knowledge system that connects to chat platforms and turns knowledge into content."
+description = "alchemist — a self-deployable multi-agent CODE/PARA knowledge system that connects to chat platforms and turns knowledge into content."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }

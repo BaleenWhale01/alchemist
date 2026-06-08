@@ -90,7 +90,7 @@ class Gateway:
             )
         except Exception as e:  # never let one bad message kill the poller
             log.exception("[%s] handler error", agent_id)
-            await self.adapters[agent_id].send(inc.chat_id, f"⚠️ @{agent_id} 出错了：{e}")
+            await self.adapters[agent_id].send(inc.chat_id, f"⚠️ @{agent_id} hit an error: {e}")
             return
         if reply.skip or not reply.text.strip():
             return

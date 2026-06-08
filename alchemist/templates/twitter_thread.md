@@ -7,4 +7,4 @@ Structure to follow when drafting:
 - Penultimate tweet: the synthesis / "so what".
 - Final tweet: CTA (follow / reply / link).
 
-Voice: punchy, declarative, English unless the user writes in Chinese.
+Voice: punchy, declarative.

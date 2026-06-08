@@ -28,16 +28,16 @@ class LibrarianAgent(Agent):
         """Monday routine: scan the whole library, push the weekly knowledge map."""
         extra = (
             "Produce this week's KNOWLEDGE MAP from the inventory below. Sections:\n"
-            "1) 活跃 Projects（在推进的）\n"
-            "2) 值得关注的 Resources（可能该用起来或迁移的）\n"
-            "3) 建议 Archive 的内容（已不活跃）\n"
+            "1) Active Projects (in progress)\n"
+            "2) Resources worth attention (worth using or migrating)\n"
+            "3) Suggested to Archive (no longer active)\n"
             "Keep it scannable: short bullets, name concrete notes. End with one "
             "prompting question about what to focus on next week.\n\n"
             f"{self._inventory(full=True)}"
         )
         text = await self.provider.complete(
             system=self.system_prompt(extra),
-            messages=[{"role": "user", "content": "生成本周知识地图。"}],
+            messages=[{"role": "user", "content": "Generate this week's knowledge map."}],
             model=self.model,
             temperature=0.4,
             max_tokens=1200,

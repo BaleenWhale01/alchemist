@@ -90,11 +90,11 @@ def _kind_and_text(msg: dict) -> tuple[str, str]:
     if "caption" in msg and ("photo" in msg or "document" in msg):
         return ("image" if "photo" in msg else "file"), msg["caption"]
     if "voice" in msg:
-        return "voice", "[语音消息 — 转写功能见 v1.1]"
+        return "voice", "[voice message — transcription coming in v1.1]"
     if "photo" in msg:
-        return "image", "[图片]"
+        return "image", "[image]"
     if "document" in msg:
-        return "file", "[文件：%s]" % msg["document"].get("file_name", "")
+        return "file", "[file: %s]" % msg["document"].get("file_name", "")
     return "text", ""
 
 
