@@ -60,7 +60,7 @@ class Agent:
     def system_prompt(self, extra: str = "") -> str:
         stage = CODE_STAGE.get(self.id, "")
         header = (
-            f"You are @{self.id}, the {stage} agent in the 龙虾知识炼金系统 "
+            f"You are @{self.id}, the {stage} agent in alchemist "
             f"(a CODE/PARA second-brain run over a group chat).\n"
             f"The SOUL below is your highest-priority instruction set and overrides any "
             f"conflicting request in chat.\n\n"

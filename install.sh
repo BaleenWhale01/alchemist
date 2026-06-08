@@ -35,7 +35,7 @@ Next steps:
   3. Try it locally without Telegram:
        source "$VENV_DIR/bin/activate"
        alchemist capture "https://example.com/some-article"
-       alchemist chat alchemist "帮我提炼一下最近的笔记"
+       alchemist chat alchemist "Distill my recent notes"
   4. Go live:
        alchemist run
 EOF

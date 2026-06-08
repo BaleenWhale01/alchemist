@@ -1,7 +1,5 @@
 # alchemist
 
-*[中文版 / Chinese version →](README.zh-CN.md)*
-
 A **self-deployable, multi-agent knowledge system** that runs the CODE methodology
 (Capture → Organize → Distill → Express) over a chat group and a PARA Markdown
 workspace. You add four bots to one chat; they turn the stuff you throw at them into
@@ -18,7 +16,7 @@ YAML config — specialized here into the four-agent CODE pipeline from the prod
 | `@scout` | **Capture** | Receives everything, files it to PARA, asks at most one intent question. |
 | `@librarian` | **Organize** | Guards PARA structure; the only agent that can move/archive. Pushes a weekly knowledge map. |
 | `@alchemist` | **Distill** | Scans all notes for cross-note patterns; pushes insight candidates (Wed/Fri); learns your taste. |
-| `@publisher` | **Express** | Turns insights + project notes into drafts (Xiaohongshu / WeChat / Twitter / memo / book chapter…); always reverse-validates the claims. |
+| `@publisher` | **Express** | Turns insights + project notes into drafts (Twitter thread / decision memo / book chapter); always reverse-validates the claims. |
 
 All four mount the **same** PARA workspace (`Projects / Areas / Resources / Archives`).
 Notes are plain Markdown (`YYYYMMDD-source-tag.md`) — yours to back up and migrate.

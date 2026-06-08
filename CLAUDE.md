@@ -4,14 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-**alchemist (龙虾知识炼金系统)** — a self-deployable, multi-agent knowledge system that
+**alchemist** — a self-deployable, multi-agent knowledge system that
 runs Tiago Forte's CODE methodology (Capture→Organize→Distill→Express) over a chat group
 and a PARA Markdown workspace. Four bots share one workspace; the user adds them to a
 Telegram group and they capture input, organize it, surface insights, and produce content.
 
 Architecture is modeled on `nousresearch/hermes-agent` (gateway + swappable providers +
 cron scheduler + YAML config), specialized into the four-agent CODE pipeline from the PRD
-(`docs/龙虾知识炼金系统_产品需求文档.docx`, still the product source of truth).
+(`docs/product-requirements.docx`, still the product source of truth).
 
 ## Commands
 
@@ -48,7 +48,10 @@ truth; agents coordinate by reading/writing Markdown notes in it.
   subclasses implement `handle(Message)`. Scheduled work lives as extra methods:
   `librarian.weekly_map()`, `alchemist.scan_insights()`. Agents return structured JSON via
   `provider.complete_json()` and the Python code performs the side effects (deterministic,
-  not tool-calling loops).
+  not tool-calling loops). The **alchemist taste loop** spans `scan_insights` → chat:
+  `scan_insights` persists the surfaced candidate to `<workspace>/.alchemist/pending.json`;
+  the alchemist's next `handle()` classifies the user's reply, and if it's a verdict calls
+  `record_judgment` + clears pending, so `_learning_summary` accumulates taste over time.
 - **`channels/`** — `ChatAdapter` is the platform-agnostic contract; `telegram.py` is the
   only adapter today (long-poll, one bot per agent, stdlib + httpx). `gateway.py` owns
   routing + the scheduler: **@scout listens to everything except messages addressed to
@@ -82,8 +85,3 @@ truth; agents coordinate by reading/writing Markdown notes in it.
 
 Voice transcription, more chat adapters (interface is ready), knowledge-map image export,
 multi-identity, team/shared workspace.
-
-Insight accept/reject capture is now wired: `scan_insights` persists the surfaced candidate to
-`<workspace>/.alchemist/pending.json`; the alchemist's next `handle()` classifies the user's
-reply (via `complete_json`) and, if it's a verdict, calls `record_judgment` and clears pending —
-so `_learning_summary` actually accumulates taste over time.

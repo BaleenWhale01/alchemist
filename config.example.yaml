@@ -1,5 +1,5 @@
 # ───────────────────────────────────────────────────────────────────
-# alchemist (龙虾知识炼金系统) configuration
+# alchemist configuration
 # Copy to ~/.alchemist/config.yaml (or pass --config) and fill in.
 # Secrets may also come from env vars; env vars win over this file.
 # ───────────────────────────────────────────────────────────────────

@@ -45,9 +45,9 @@ class AlchemistAgent(Agent):
                 self._clear_pending()
                 if accepted:
                     return AgentReply(
-                        text=f"记下了——「{head}」这个方向你认可，以后我会多往这类连接上靠。"
+                        text=f"Noted — you're into the \"{head}\" direction; I'll lean toward connections like this from now on."
                     )
-                return AgentReply(text=f"好，「{head}」先放一边，下次我换个角度找。")
+                return AgentReply(text=f"Okay, I'll set \"{head}\" aside and try a different angle next time.")
 
         extra = (
             "Help the user distill. Do progressive-summary layers 1 (capture essence) and "
@@ -78,19 +78,19 @@ class AlchemistAgent(Agent):
         )
         data = await self.provider.complete_json(
             system=self.system_prompt(extra),
-            messages=[{"role": "user", "content": "本周有什么值得注意的连接？"}],
+            messages=[{"role": "user", "content": "What connections are worth noticing this week?"}],
             model=self.model,
             temperature=0.6,
             max_tokens=900,
         )
         dirs = "\n".join(f"  {i+1}. {d}" for i, d in enumerate(data.get("directions", [])))
-        linked = "、".join(data.get("linked_notes", [])) or "（多条笔记）"
+        linked = ", ".join(data.get("linked_notes", [])) or "(several notes)"
         text = (
-            f"我发现：{data.get('headline','')}\n"
+            f"I noticed: {data.get('headline','')}\n"
             f"{data.get('why_it_matters','')}\n"
-            f"关联笔记：{linked}\n"
-            f"可能的方向：\n{dirs}\n"
-            f"（回复方向编号告诉我哪个对你有意思，我会记住你的判断。）"
+            f"Linked notes: {linked}\n"
+            f"Possible directions:\n{dirs}\n"
+            f"(Reply with a direction number to tell me which interests you — I'll remember your judgment.)"
         )
         self._save_pending(data.get("headline", ""), data.get("directions", []))
         return AgentReply(text=text, prefix=PREFIX["insight"])
@@ -99,7 +99,7 @@ class AlchemistAgent(Agent):
         """Ask the model whether `text` is the user's accept/reject of the pending insight."""
         dirs = "\n".join(
             f"  {i+1}. {d}" for i, d in enumerate(pending.get("directions", []))
-        ) or "  （无）"
+        ) or "  (none)"
         schema = _JUDGMENT_SCHEMA.format(headline=pending.get("headline", ""), dirs=dirs)
         return await self.provider.complete_json(
             system=self.system_prompt(schema),

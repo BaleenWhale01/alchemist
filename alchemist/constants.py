@@ -20,10 +20,10 @@ DISTILL_MARKER = "--- Distilled ---"
 
 # Message prefixes so a single group chat stays visually scannable (PRD §appendix A).
 PREFIX = {
-    "weekly_map": "[每周盘点]",
-    "insight": "[洞见]",
-    "draft": "[草稿]",
-    "capture": "[已接收]",
+    "weekly_map": "[Weekly Map]",
+    "insight": "[Insight]",
+    "draft": "[Draft]",
+    "capture": "[Captured]",
 }
 
 # Default config search path.

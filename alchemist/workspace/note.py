@@ -14,7 +14,7 @@ from pathlib import Path
 
 import yaml
 
-_SLUG_RE = re.compile(r"[^0-9a-zA-Z一-鿿]+")
+_SLUG_RE = re.compile(r"[^0-9a-zA-Z]+")
 
 
 def slugify(text: str, max_len: int = 24) -> str:

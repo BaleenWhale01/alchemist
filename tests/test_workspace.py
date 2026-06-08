@@ -13,12 +13,12 @@ def fixed_clock():
 def test_write_and_read_note(tmp_path):
     ws = Workspace(tmp_path, clock=fixed_clock)
     ws.init()
-    note = Note(title="定价策略", body="按价值定价而非成本", source="url", tags=["pricing"], para="Resources")
+    note = Note(title="Pricing strategy", body="Price by value, not cost", source="url", tags=["pricing"], para="Resources")
     path = ws.write_note(note)
     assert path.exists()
     assert path.name == "20260530-url-pricing.md"
     loaded = Note.from_file(path)
-    assert loaded.title == "定价策略"
+    assert loaded.title == "Pricing strategy"
     assert loaded.tags == ["pricing"]
     assert loaded.para == "Resources"
 
@@ -57,6 +57,6 @@ def test_append_distillation(tmp_path):
 def test_save_draft(tmp_path):
     ws = Workspace(tmp_path, clock=fixed_clock)
     ws.init()
-    path = ws.save_draft("book", "第三章", "draft content")
+    path = ws.save_draft("book", "Chapter 3", "draft content")
     assert path.exists()
     assert "Projects/book/drafts" in str(path)

@@ -35,16 +35,16 @@ async def test_scout_captures_to_workspace(tmp_path):
     ws.init()
     provider = FakeProvider(json_reply={
         "summary": "value-based pricing", "kind": "url", "tags": ["pricing"],
-        "para": "Resources", "project": "", "question": "放资源库还是定价项目?",
-        "title": "定价文章",
+        "para": "Resources", "project": "", "question": "Resources or the Pricing project?",
+        "title": "Pricing article",
     })
     scout = ScoutAgent("scout", cfg, provider, ws)
     reply = await scout.handle(Message(text="https://example.com/pricing", kind="url"))
-    assert "已接收" in reply.rendered()
-    assert "放资源库还是定价项目?" in reply.rendered()
+    assert "Captured" in reply.rendered()
+    assert "Resources or the Pricing project?" in reply.rendered()
     notes = ws.all_notes()
     assert len(notes) == 1
-    assert notes[0].title == "定价文章"
+    assert notes[0].title == "Pricing article"
 
 
 @pytest.mark.asyncio
@@ -66,15 +66,15 @@ async def test_alchemist_scan_surfaces_insight_and_arms_pending(tmp_path):
     for i in range(3):
         ws.write_note(Note(title=f"n{i}", body="pricing power", tags=["pricing"]))
     provider = FakeProvider(json_reply={
-        "headline": "你反复在谈定价权",
-        "why_it_matters": "三条笔记都绕回这点。",
+        "headline": "You keep returning to pricing power",
+        "why_it_matters": "All three notes circle back to it.",
         "linked_notes": ["n0", "n1"],
-        "directions": ["定价权从何而来?", "如何度量?", "何时失效?"],
+        "directions": ["Where does pricing power come from?", "How do you measure it?", "When does it break down?"],
     })
     alch = AlchemistAgent("alchemist", cfg, provider, ws)
     reply = await alch.scan_insights()
     assert reply.skip is False
-    assert alch._load_pending()["headline"] == "你反复在谈定价权"
+    assert alch._load_pending()["headline"] == "You keep returning to pricing power"
 
 
 @pytest.mark.asyncio
@@ -83,15 +83,15 @@ async def test_alchemist_reply_records_acceptance_and_clears_pending(tmp_path):
     ws = Workspace(cfg.workspace)
     ws.init()
     alch = AlchemistAgent("alchemist", cfg, FakeProvider(
-        json_reply={"is_judgment": True, "accepted": True, "note": "定价权从何而来"}
+        json_reply={"is_judgment": True, "accepted": True, "note": "where pricing power comes from"}
     ), ws)
-    alch._save_pending("你反复在谈定价权", ["定价权从何而来?", "如何度量?"])
+    alch._save_pending("You keep returning to pricing power", ["Where does pricing power come from?", "How do you measure it?"])
 
     reply = await alch.handle(Message(text="1"))
 
-    assert "记下了" in reply.rendered()
+    assert "Noted" in reply.rendered()
     assert alch._load_pending() is None  # consumed
-    assert "你反复在谈定价权" in alch._learning_summary()
+    assert "You keep returning to pricing power" in alch._learning_summary()
     log = (ws.root / ".alchemist" / "judgments.jsonl").read_text(encoding="utf-8")
     assert '"accepted": true' in log
 
@@ -102,12 +102,12 @@ async def test_alchemist_unrelated_reply_falls_through_to_distill(tmp_path):
     ws = Workspace(cfg.workspace)
     ws.init()
     alch = AlchemistAgent("alchemist", cfg, FakeProvider(
-        json_reply={"is_judgment": False}, text_reply="这是提炼结果"
+        json_reply={"is_judgment": False}, text_reply="Here is the distillation"
     ), ws)
-    alch._save_pending("你反复在谈定价权", ["定价权从何而来?"])
+    alch._save_pending("You keep returning to pricing power", ["Where does pricing power come from?"])
 
-    reply = await alch.handle(Message(text="帮我提炼一下今天读的那篇文章"))
+    reply = await alch.handle(Message(text="Help me distill the article I read today"))
 
-    assert reply.rendered() == "这是提炼结果"
+    assert reply.rendered() == "Here is the distillation"
     assert alch._load_pending() is not None  # not consumed
     assert not (ws.root / ".alchemist" / "judgments.jsonl").exists()

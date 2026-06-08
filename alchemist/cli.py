@@ -153,7 +153,7 @@ def _find_example_config() -> Path | None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(prog="alchemist", description="龙虾知识炼金系统")
+    p = argparse.ArgumentParser(prog="alchemist", description="alchemist — multi-agent CODE/PARA knowledge system")
     p.add_argument("--config", help=f"config path (default {DEFAULT_CONFIG_PATH})")
     sub = p.add_subparsers(dest="cmd", required=True)
 
